@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        maven 'maven'
+        maven 'Maven-3.9.12'
         jdk 'jdk-21'
     }
 
@@ -14,13 +14,13 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build with Maven') {
             steps {
                 bat 'mvn clean package'
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to Tomcat') {
             steps {
                 deploy adapters: [
                     tomcat9(
