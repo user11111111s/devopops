@@ -8,7 +8,7 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/user11111111s/devopops.git'
             }
@@ -20,16 +20,9 @@ pipeline {
             }
         }
 
-        stage('Deploy to Tomcat') {
+        stage('Archive Artifact') {
             steps {
-                deploy adapters: [
-                    tomcat9(
-                        credentialsId: 'tomcat-creds',
-                        url: 'http://localhost:8081'
-                    )
-                ],
-                contextPath: 'hello-world',
-                war: 'target/hello-world.war'
+                archiveArtifacts artifacts: 'target/*.war', fingerprint: true
             }
         }
     }
